@@ -1,0 +1,32 @@
+# Use a base image with pypy3
+FROM pypy:3.9-slim
+
+# Set the working directory inside the container
+WORKDIR /flask
+
+# Use a base image with pypy3
+FROM pypy:3.9-slim
+
+# Set the working directory inside the container
+WORKDIR /flask
+
+# Copy your requirements.txt into the container
+COPY . /flask/
+
+# Install dependencies using pypy3
+RUN pypy3 -m pip install --no-cache-dir -r requirements.txt
+
+
+# Expose the port that Flask will run on
+EXPOSE 5000
+
+# Set environment variable for Flask
+ENV FLASK_APP=flask/app.py
+
+# Set the default command to run the app using pypy3
+CMD ["pypy3", "app.py"]
+# Install dependencies using pypy3
+
+
+
+
