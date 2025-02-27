@@ -18,7 +18,7 @@ RUN pypy3 -m pip install --no-cache-dir -r requirements.txt
 
 
 # Expose the port that Flask will run on
-EXPOSE 5000
+EXPOSE 10000
 
 # Set environment variable for Flask
 ENV FLASK_APP=flask/app.py
