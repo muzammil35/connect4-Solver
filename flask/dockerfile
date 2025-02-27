@@ -24,7 +24,7 @@ EXPOSE 10000
 ENV FLASK_APP=flask/app.py
 
 # Set the default command to run the app using pypy3
-CMD ["pypy3", "app.py"]
+CMD ["pypy3", "-m", "gunicorn", "flask.app:app", "--bind", "0.0.0.0:10000"]
 # Install dependencies using pypy3
 
 
