@@ -101,5 +101,7 @@ def reset():
     game.reset()
     return jsonify({'board': game.get_board()})
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 5000))  # Get the port from environment, default to 5000
+    app.run(host="0.0.0.0", port=port)  # Bind to 0.0.0.0 for external access
