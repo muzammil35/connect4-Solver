@@ -103,5 +103,5 @@ def reset():
 
     
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5000))  # Get the port from environment, default to 5000
+    port = int(os.getenv("PORT", 10000))  # Get the port from environment, default to 5000
     app.run(host="0.0.0.0", port=port)  # Bind to 0.0.0.0 for external access
