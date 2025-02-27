@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect 4</title>
+  <style>
+    body { font-family: Arial, sans-serif; display: flex; background-color: rgb(81, 118, 230);  flex-direction: column; align-items: center; }
+    #board { display: grid;  grid-template-columns: repeat(7, 150px); gap: 5px; margin: 20px 0; }
+    .cell { width: 120px; height: 120px; background: #f4f0f0; border: 1px solid #4ece81; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .player1 { background: red; }
+    .player2 { background: yellow; }
+    #message { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Connect 4</h1>
+  <div id="board"></div>
+  <button onclick="initGame()">Restart</button>
+  <div id="message"></div>
+
+  <script>
+    const boardElement = document.getElementById("board");
+    const messageElement = document.getElementById("message");
+    let gameOver = false;
+
+    // Fetch the initial board
+    async function initGame() {
+      await fetch("/reset", { method: "POST" });
+      loadBoard();
+      gameOver = false;
+    }
+
+    // Load the board from the server
+    async function loadBoard() {
+      const response = await fetch("/get_board");
+      const data = await response.json();
+      renderBoard(data);
+    }
+
+    // Render the board visually
+    function renderBoard(board) {
+      boardElement.innerHTML = "";
+      board.forEach((row, rowIndex) => {
+        row.forEach((cell, colIndex) => {
+          const cellDiv = document.createElement("div");
+          cellDiv.classList.add("cell");
+          if (cell === 1) cellDiv.classList.add("player1");
+          if (cell === 2) cellDiv.classList.add("player2");
+          cellDiv.onclick = () => handleCellClick(colIndex);
+          boardElement.appendChild(cellDiv);
+        });
+      });
+    }
+
+    // Handle the player's click on a column
+    async function handleCellClick(colIndex) {
+      if (gameOver) return; 
+      const response = await fetch("/play", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ col: colIndex }),
+      });
+      const data = await response.json();
+      if (data.error) {
+        messageElement.textContent = data.error;
+      } else {
+        renderBoard(data.board);
+        if (data.winner) {
+          gameOver = true;
+          messageElement.textContent = `Player ${data.winner} wins!`;
+
+        } else {
+          messageElement.textContent = `Player ${data.current_player}'s turn`;
+        }
+      }
+    }
+
+    // Initialize the game when the page loads
+    window.onload = initGame;
+  </script>
+</body>
+</html>
+
