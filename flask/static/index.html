@@ -139,9 +139,11 @@ Connect 4
                 playerTurn = !playerTurn;  // Toggle turn
                 if(currentPlayer == "Bot"){
                     currentPlayer = "Player"
+                    messageElement.style.color = "yellow";
                 }
                 else{
                     currentPlayer = "Bot"
+                    messageElement.style.color = "red";
                 }
                 messageElement.textContent = `${currentPlayer}'s turn`;
 
