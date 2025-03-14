@@ -1,3 +1,6 @@
+
+# Connect 4 Player
+
 This project implements a Connect 4 game with a Flask backend and a bot opponent powered by AI. The application allows players to interact with the game board, make moves, and play against an AI bot. The bot's moves are calculated using a custom AI algorithm that evaluates board states and selects optimal moves based on game progress.
 
 Key Features:
@@ -13,3 +16,10 @@ Flask: Used for the web framework to handle HTTP routes and manage the game's lo
 Python: Core programming language used for backend development and AI implementation.
 PyPy: Utilized for its speed in running the AI script (solve_pypy.py) to calculate the bot's optimal moves.
 JavaScript & HTML: For the frontend to visualize the game and display the current board.
+
+
+
+## Deployment
+
+Deployed link: https://connect4-service-768895558000.northamerica-northeast1.run.app/
+
